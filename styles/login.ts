@@ -1,17 +1,24 @@
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 
 const loginStyle = () => 
     StyleSheet.create({
         container: {
             flex: 1,
             backgroundColor: 'white',
+            justifyContent: 'center',
+            verticalAlign: 'middle',
         },
         content: {
             flex: 1,
-            paddingHorizontal: 24,
+            paddingHorizontal: 20,
             paddingTop: 40,
             justifyContent: 'space-between',
             paddingBottom: 20,
+        },
+        lottieAnimation: {
+              width: Dimensions.get("window").width,
+              height: 250, // Reduced height for better vertical centering
+              marginVertical: 20,
         },
         title: {
             fontSize: 24,

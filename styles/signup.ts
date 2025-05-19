@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 
 const signupStyle = () =>
     StyleSheet.create({
@@ -13,6 +13,11 @@ const signupStyle = () =>
             justifyContent: 'space-between',
             paddingBottom: 20,
         },
+        lottieAnimation: {
+            width: Dimensions.get("window").width,
+            height: 250, // Reduced height for better vertical centering
+            marginVertical: 20,
+                },
         title: {
             fontSize: 24,
             fontWeight: '600',
@@ -72,7 +77,7 @@ const signupStyle = () =>
         dividerContainer: {
             flexDirection: 'row',
             alignItems: 'center',
-            marginVertical: 20,
+            marginVertical: 10,
         },
         divider: {
             flex: 1,

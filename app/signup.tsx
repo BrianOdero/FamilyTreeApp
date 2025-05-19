@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, SafeAreaView, Imag
 import { Link } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import signupStyle from '@/styles/signup';
+import LottieView from 'lottie-react-native';
 
 export default function SignUpScreen() {
   const [showPassword, setShowPassword] = useState(false);
@@ -15,6 +16,13 @@ export default function SignUpScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
+
+        <LottieView 
+            source={require('@/assets/animations/signupAnimation.json')}
+            style={styles.lottieAnimation}
+            autoPlay 
+                />
+
         <Text style={styles.title}>Create an account</Text>
         
         <View style={styles.form}>
@@ -73,13 +81,6 @@ export default function SignUpScreen() {
             <View style={styles.divider} />
           </View>
           
-          <TouchableOpacity style={styles.socialButton}>
-            <Image 
-              source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg' }} 
-              style={styles.socialIcon} 
-            />
-            <Text style={styles.socialButtonText}>Sign up with Google</Text>
-          </TouchableOpacity>
           
           <TouchableOpacity style={styles.socialButton}>
             <Image 
@@ -97,9 +98,7 @@ export default function SignUpScreen() {
           </View>
         </View>
         
-        <View style={styles.indicator}>
-          <View style={styles.indicatorDot} />
-        </View>
+        
       </View>
     </SafeAreaView>
   );
