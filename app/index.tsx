@@ -47,7 +47,7 @@ const getData = async () => {
   try {
     const value = await AsyncStorage.getItem('onboardingComplete');
     if (value !== null) {
-      router.replace('/login')
+      router.replace('/welcomeScreen')
     }
   } catch (e) {
     console.log('error occurred while fetching key, ', e);
@@ -63,7 +63,7 @@ useEffect(() => {
     if (screenIndex < onboardingData.length - 1) {
       setScreenIndex(screenIndex + 1)
     }else if(screenIndex === onboardingData.length - 1){
-      router.push("/login")
+      router.push('/welcomeScreen')
     }
   }
 
@@ -75,7 +75,7 @@ useEffect(() => {
 
   const onSkip = () => {
     onboardingDone()
-    router.push('/login')
+    router.push('/welcomeScreen')
     
   }
 

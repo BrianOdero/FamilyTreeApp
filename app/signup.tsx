@@ -2,21 +2,32 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, SafeAreaView, Image } from 'react-native';
 import { Link } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import loginStyle from '@/styles/login';
+import signupStyle from '@/styles/signup';
 
-export default function LoginScreen() {
+export default function SignUpScreen() {
   const [showPassword, setShowPassword] = useState(false);
+  const [firstName, setFirstName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const styles = loginStyle();
+  const styles = signupStyle()
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
-        <Text style={styles.title}>login</Text>
+        <Text style={styles.title}>Create an account</Text>
         
         <View style={styles.form}>
+          <View style={styles.inputGroup}>
+            <Text style={styles.label}>First Name</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Ex: Ahmed"
+              value={firstName}
+              onChangeText={setFirstName}
+            />
+          </View>
+          
           <View style={styles.inputGroup}>
             <Text style={styles.label}>Email</Text>
             <TextInput
@@ -50,13 +61,10 @@ export default function LoginScreen() {
                 />
               </TouchableOpacity>
             </View>
-            <TouchableOpacity style={styles.forgotPassword}>
-              <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
-            </TouchableOpacity>
           </View>
           
           <TouchableOpacity style={styles.primaryButton}>
-            <Text style={styles.primaryButtonText}>Login</Text>
+            <Text style={styles.primaryButtonText}>Create Account</Text>
           </TouchableOpacity>
           
           <View style={styles.dividerContainer}>
@@ -70,7 +78,7 @@ export default function LoginScreen() {
               source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg' }} 
               style={styles.socialIcon} 
             />
-            <Text style={styles.socialButtonText}>Login With Google</Text>
+            <Text style={styles.socialButtonText}>Sign up with Google</Text>
           </TouchableOpacity>
           
           <TouchableOpacity style={styles.socialButton}>
@@ -78,13 +86,13 @@ export default function LoginScreen() {
               source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1024px-Facebook_Logo_%282019%29.png' }} 
               style={styles.socialIcon} 
             />
-            <Text style={styles.socialButtonText}>Login With Facebook</Text>
+            <Text style={styles.socialButtonText}>Sign up with Facebook</Text>
           </TouchableOpacity>
           
           <View style={styles.footer}>
-            <Text style={styles.footerText}>Don't have an account? </Text>
-            <Link href="/signup">
-              <Text style={styles.footerLink}>Sign up</Text>
+            <Text style={styles.footerText}>Already have an account? </Text>
+            <Link href="/login">
+              <Text style={styles.footerLink}>Login</Text>
             </Link>
           </View>
         </View>
