@@ -1,8 +1,9 @@
 import React, { useRef, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, SafeAreaView, Alert } from 'react-native';
 import { router } from 'expo-router';
 import LottieView from 'lottie-react-native';
 import getWelcomeScreenStyles from '@/styles/welcomeScreen'; // Renamed import to avoid naming conflict
+import { supabase } from '@/lib/supabase';
 
 export default function WelcomeScreen() {
   const animationRef = useRef<LottieView>(null);
@@ -14,6 +15,19 @@ export default function WelcomeScreen() {
       animationRef.current.play();
     }
   }, []);
+
+  useEffect(() => {
+   
+  }, [])
+  
+
+
+  async function signInAnonymously(){
+    const { data : {session}, error } = await supabase.auth.signInAnonymously()
+    if (error) Alert.alert(error.message)
+    Alert.alert('Successfully signed in as guest user')
+    router.push('/(auth)/homepage')
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -44,6 +58,15 @@ export default function WelcomeScreen() {
           >
             <Text style={styles.secondaryButtonText}>Login</Text>
           </TouchableOpacity>
+
+           <TouchableOpacity 
+            style={styles.secondaryButton}
+            onPress={signInAnonymously}
+          >
+            <Text style={styles.secondaryButtonText}>Register As Guest User</Text>
+          </TouchableOpacity>
+
+          
         </View>
         
         <View style={styles.indicator}>

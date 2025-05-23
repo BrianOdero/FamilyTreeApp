@@ -53,6 +53,8 @@ const getWelcomeScreenStyles = () =>
             alignItems: 'center',
             borderWidth: 1,
             borderColor: '#e5e7eb',
+            marginBottom: 16,
+
         },
         secondaryButtonText: {
             color: '#1e3a8a',

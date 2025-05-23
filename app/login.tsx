@@ -1,16 +1,33 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, SafeAreaView, Image } from 'react-native';
-import { Link } from 'expo-router';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, SafeAreaView, Image, Alert } from 'react-native';
+import { Link, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import loginStyle from '@/styles/login';
 import LottieView from 'lottie-react-native';
+import { supabase } from '@/lib/supabase';
 
 export default function LoginScreen() {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const router = useRouter()
+
+  const [loading,setLoading] = useState(false)
 
   const styles = loginStyle();
+
+  async function signInWithEmail(){
+
+    setLoading(true)
+
+    const { error } = await supabase.auth.signInWithPassword({
+      email: email,
+      password: password
+    })
+    if (error) Alert.alert(error.message)
+    router.push('/(auth)/homepage')
+    setLoading(false)
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -63,24 +80,11 @@ export default function LoginScreen() {
             </TouchableOpacity>
           </View>
           
-          <TouchableOpacity style={styles.primaryButton}>
+          <TouchableOpacity style={styles.primaryButton} onPress={signInWithEmail}>
             <Text style={styles.primaryButtonText}>Login</Text>
           </TouchableOpacity>
           
-          <View style={styles.dividerContainer}>
-            <View style={styles.divider} />
-            <Text style={styles.dividerText}>OR</Text>
-            <View style={styles.divider} />
-          </View>
           
-          
-          <TouchableOpacity style={styles.socialButton}>
-            <Image 
-              source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1024px-Facebook_Logo_%282019%29.png' }} 
-              style={styles.socialIcon} 
-            />
-            <Text style={styles.socialButtonText}>Login With Facebook</Text>
-          </TouchableOpacity>
           
           <View style={styles.footer}>
             <Text style={styles.footerText}>Don't have an account? </Text>

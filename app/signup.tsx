@@ -1,17 +1,35 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, SafeAreaView, Image } from 'react-native';
-import { Link } from 'expo-router';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, SafeAreaView, Image, Alert, ActivityIndicator } from 'react-native';
+import { Link, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import signupStyle from '@/styles/signup';
 import LottieView from 'lottie-react-native';
+import { supabase } from '@/lib/supabase';
 
 export default function SignUpScreen() {
   const [showPassword, setShowPassword] = useState(false);
-  const [firstName, setFirstName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading,setLoading] = useState(false)
+  const router = useRouter()
 
   const styles = signupStyle()
+
+    async function signUpWithEmail() {
+    setLoading(true)
+    const {
+      data: { session },
+      error,
+    } = await supabase.auth.signUp({
+      email: email,
+      password: password,
+    })
+    if (error) Alert.alert(error.message)
+    
+    setLoading(false)
+  }
+
+  if (loading) return <ActivityIndicator size={'large'}/>
 
   return (
     <SafeAreaView style={styles.container}>
@@ -26,15 +44,7 @@ export default function SignUpScreen() {
         <Text style={styles.title}>Create an account</Text>
         
         <View style={styles.form}>
-          <View style={styles.inputGroup}>
-            <Text style={styles.label}>First Name</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Ex: Ahmed"
-              value={firstName}
-              onChangeText={setFirstName}
-            />
-          </View>
+         
           
           <View style={styles.inputGroup}>
             <Text style={styles.label}>Email</Text>
@@ -71,24 +81,11 @@ export default function SignUpScreen() {
             </View>
           </View>
           
-          <TouchableOpacity style={styles.primaryButton}>
+          <TouchableOpacity style={styles.primaryButton} onPress={signUpWithEmail}>
             <Text style={styles.primaryButtonText}>Create Account</Text>
           </TouchableOpacity>
           
-          <View style={styles.dividerContainer}>
-            <View style={styles.divider} />
-            <Text style={styles.dividerText}>OR</Text>
-            <View style={styles.divider} />
-          </View>
-          
-          
-          <TouchableOpacity style={styles.socialButton}>
-            <Image 
-              source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1024px-Facebook_Logo_%282019%29.png' }} 
-              style={styles.socialIcon} 
-            />
-            <Text style={styles.socialButtonText}>Sign up with Facebook</Text>
-          </TouchableOpacity>
+        
           
           <View style={styles.footer}>
             <Text style={styles.footerText}>Already have an account? </Text>

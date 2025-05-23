@@ -17,7 +17,7 @@ const loginStyle = () =>
         },
         lottieAnimation: {
               width: Dimensions.get("window").width,
-              height: 250, // Reduced height for better vertical centering
+              height: 350, // Reduced height for better vertical centering
               marginVertical: 20,
         },
         title: {
